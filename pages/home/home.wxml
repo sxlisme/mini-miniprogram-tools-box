@@ -1,0 +1,35 @@
+<navigation-bar title="提效工具箱" back="{{false}}" color="white" background="transparent"></navigation-bar>
+
+<view class="page">
+  <!-- 顶部区域 -->
+  <view class="header">
+    <view class="header-greeting">提效工具箱</view>
+    <view class="header-sub">常用工具，一键即达 <t-icon name="rocket" size="28rpx" /></view>
+  </view>
+
+  <!-- 工具网格 -->
+  <scroll-view class="scroll-area" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="tool-grid">
+      <view
+        class="tool-card"
+        wx:for="{{tools}}"
+        wx:key="id"
+        bindtap="openTool"
+        data-tool="{{item}}"
+      >
+        <view class="card-icon-wrap" style="background: {{item.color}};">
+          <t-icon class="card-icon" name="{{item.icon}}" size="48rpx" color="#FFFFFF" />
+        </view>
+        <view class="card-body">
+          <text class="card-name">{{item.name}}</text>
+          <text class="card-desc">{{item.desc}}</text>
+        </view>
+        <view class="card-fav" catchtap="toggleFav" data-id="{{item.id}}">
+          <t-icon name="{{item.isFav ? 'star-filled' : 'star'}}" size="36rpx" color="{{item.isFav ? '#FFD700' : '#CCCCCC'}}" />
+        </view>
+      </view>
+    </view>
+
+    <view class="bottom-safe"></view>
+  </scroll-view>
+</view>

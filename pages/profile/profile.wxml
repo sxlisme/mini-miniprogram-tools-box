@@ -1,0 +1,92 @@
+<navigation-bar title="个人中心" back="{{false}}" color="white" background="transparent"></navigation-bar>
+
+<view class="page">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+      <image
+        wx:if="{{userInfo.avatarUrl}}"
+        class="avatar"
+        src="{{userInfo.avatarUrl}}"
+        mode="aspectFill"
+      />
+      <view wx:else class="avatar-placeholder">
+        <t-icon class="avatar-placeholder-icon" name="user" size="64rpx" />
+      </view>
+      <view class="avatar-mask">
+        <text>点击换头像</text>
+      </view>
+    </button>
+    <view class="user-info" bindtap="showNickModal">
+      <text class="nickname">{{userInfo.nickName || '微信用户'}}</text>
+      <text class="edit-hint">点击修改昵称</text>
+    </view>
+  </view>
+
+  <scroll-view class="scroll-area" scroll-y enhanced show-scrollbar="{{false}}">
+    <!-- 基本信息 -->
+    <view class="section">
+      <view class="section-title">基本信息</view>
+      <view class="info-row">
+        <text class="info-label">用户 ID</text>
+        <text class="info-value">{{userInfo.id}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">注册时间</text>
+        <text class="info-value">{{userInfo.createTime}}</text>
+      </view>
+    </view>
+
+    <!-- 登录记录 -->
+    <view class="section">
+      <view class="section-title">登录记录</view>
+      <view wx:if="{{loginRecords.length === 0}}" class="empty-login">
+        <text>暂无记录</text>
+      </view>
+      <view
+        class="log-item"
+        wx:for="{{loginRecords}}"
+        wx:key="timestamp"
+      >
+        <t-icon class="log-dot" name="circle" size="12rpx" color="#07C160" />
+        <text class="log-time">{{item.time}}</text>
+      </view>
+    </view>
+
+    <!-- 操作区 -->
+    <view class="section">
+      <view class="section-title">其他</view>
+      <view class="action-row" bindtap="clearData">
+        <text class="action-text danger">清除所有数据</text>
+        <t-icon class="action-arrow" name="chevron-right" size="32rpx" color="#CCCCCC" />
+      </view>
+    </view>
+
+    <!-- 底部版本 -->
+    <view class="footer">
+      <text class="footer-text">提效工具箱 v1.0.0</text>
+    </view>
+
+    <view class="bottom-safe"></view>
+  </scroll-view>
+
+  <!-- 修改昵称弹窗 -->
+  <view class="modal-mask" wx:if="{{showNickModal}}" bindtap="cancelNick"></view>
+  <view class="modal" wx:if="{{showNickModal}}">
+    <view class="modal-title">修改昵称</view>
+    <input
+      class="modal-input"
+      value="{{nickInput}}"
+      placeholder="请输入昵称"
+      maxlength="20"
+      bindinput="onNickInput"
+      focus="{{showNickModal}}"
+      confirm-type="done"
+      bindconfirm="confirmNick"
+    />
+    <view class="modal-btns">
+      <view class="modal-btn cancel" bindtap="cancelNick">取消</view>
+      <view class="modal-btn confirm" bindtap="confirmNick">确定</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+{
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "提效工具箱",
+  "dependencies": {
+    "tdesign-miniprogram": "^1.5.0"
+  }
+}

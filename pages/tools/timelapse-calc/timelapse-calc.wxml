@@ -1,0 +1,150 @@
+<navigation-bar title="延时摄影计算器" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page" scroll-y enhanced show-scrollbar="{{false}}">
+
+  <!-- 模式切换 -->
+  <view class="mode-tabs">
+    <view class="mode-tab {{mode === 0 ? 'active' : ''}}" bindtap="switchMode" data-mode="0">计算间隔</view>
+    <view class="mode-tab {{mode === 1 ? 'active' : ''}}" bindtap="switchMode" data-mode="1">计算时长</view>
+  </view>
+
+  <!-- ============ 模式 0：反推拍照间隔 ============ -->
+  <view wx:if="{{mode === 0}}">
+
+    <!-- 拍摄总时长 -->
+    <view class="section">
+      <view class="section-title">拍摄总时长</view>
+      <view class="input-row">
+        <view class="input-group">
+          <text class="input-label">小时</text>
+          <input class="num-input" type="number" value="{{shootHours0}}" bindinput="onShootHours0" />
+        </view>
+        <view class="input-group">
+          <text class="input-label">分钟</text>
+          <input class="num-input" type="number" value="{{shootMinutes0}}" bindinput="onShootMinutes0" max="59" />
+        </view>
+      </view>
+    </view>
+
+    <!-- 期望视频时长 -->
+    <view class="section">
+      <view class="section-title">期望视频时长（秒）</view>
+      <view class="input-row">
+        <input class="num-input full-input" type="number" value="{{videoSeconds0}}" bindinput="onVideoSeconds0" />
+        <text class="input-suffix">秒</text>
+      </view>
+    </view>
+
+    <!-- FPS 选择 -->
+    <view class="section">
+      <view class="section-title">视频帧率（FPS）</view>
+      <view class="fps-options">
+        <view
+          class="fps-chip {{fps0 === item.value ? 'active' : ''}}"
+          wx:for="{{fpsOptions}}"
+          wx:key="value"
+          data-value="{{item.value}}"
+          bindtap="onFps0Change"
+        >{{item.label}} fps</view>
+      </view>
+    </view>
+
+    <!-- 预设场景 -->
+    <view class="section">
+      <view class="section-title">预设场景</view>
+      <view class="preset-row">
+        <view
+          class="preset-chip"
+          wx:for="{{presets}}"
+          wx:key="name"
+          data-index="{{index}}"
+          bindtap="applyPreset"
+        >
+          <t-icon class="preset-icon" name="{{item.icon}}" size="32rpx" />
+          <text class="preset-text">{{item.name}} {{item.hours ? item.hours + 'h' : ''}}{{item.minutes ? item.minutes + 'min' : ''}} <t-icon name="arrow-right" size="24rpx" color="#999" /> {{item.video}}s</text>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- ============ 模式 1：正推视频时长 ============ -->
+  <view wx:if="{{mode === 1}}">
+
+    <!-- 拍照间隔 -->
+    <view class="section">
+      <view class="section-title">拍照间隔（秒）</view>
+      <view class="input-row">
+        <input class="num-input full-input" type="number" value="{{interval1}}" bindinput="onInterval1" />
+        <text class="input-suffix">秒/张</text>
+      </view>
+    </view>
+
+    <!-- 拍摄总时长 -->
+    <view class="section">
+      <view class="section-title">拍摄总时长</view>
+      <view class="input-row">
+        <view class="input-group">
+          <text class="input-label">小时</text>
+          <input class="num-input" type="number" value="{{shootHours1}}" bindinput="onShootHours1" />
+        </view>
+        <view class="input-group">
+          <text class="input-label">分钟</text>
+          <input class="num-input" type="number" value="{{shootMinutes1}}" bindinput="onShootMinutes1" max="59" />
+        </view>
+      </view>
+    </view>
+
+    <!-- FPS 选择 -->
+    <view class="section">
+      <view class="section-title">视频帧率（FPS）</view>
+      <view class="fps-options">
+        <view
+          class="fps-chip {{fps1 === item.value ? 'active' : ''}}"
+          wx:for="{{fpsOptions}}"
+          wx:key="value"
+          data-value="{{item.value}}"
+          bindtap="onFps1Change"
+        >{{item.label}} fps</view>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- ============ 计算结果 ============ -->
+  <view class="result-card" wx:if="{{hasCalc}}">
+    <view class="result-item primary">
+      <text class="result-label">{{mode === 0 ? '拍照间隔' : '视频时长'}}</text>
+      <view class="result-value-row">
+        <text class="result-value" wx:if="{{mode === 0}}">{{resultInterval}} 秒/张</text>
+        <text class="result-value" wx:else>{{resultVideoMinute}} 分 {{resultVideoRemainSec}} 秒</text>
+      </view>
+    </view>
+    <view class="result-divider"></view>
+    <view class="result-cols">
+      <view class="result-col">
+        <text class="result-label">总照片数</text>
+        <text class="result-val">{{resultPhotos}} 张</text>
+      </view>
+      <view class="result-col" wx:if="{{mode === 0}}">
+        <text class="result-label">校验时长</text>
+        <text class="result-val">{{resultVideoMinute}}分{{resultVideoRemainSec}}秒</text>
+      </view>
+      <view class="result-col">
+        <text class="result-label">存储估算</text>
+        <text class="result-val">{{resultStorage}}</text>
+      </view>
+    </view>
+    <view class="result-divider"></view>
+    <view class="result-col">
+      <text class="result-label">预计结束</text>
+      <text class="result-val">{{resultEndTime}}</text>
+    </view>
+
+    <view class="copy-btn" bindtap="copyResult">
+      <text>复制结果</text>
+    </view>
+  </view>
+
+  <view class="bottom-safe"></view>
+</scroll-view>

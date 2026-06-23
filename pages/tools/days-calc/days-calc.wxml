@@ -1,0 +1,87 @@
+<navigation-bar title="天数计算器" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page" scroll-y enhanced show-scrollbar="{{false}}">
+  <!-- 日期选择 -->
+  <view class="section">
+    <view class="section-title">选择日期范围</view>
+
+    <view class="date-row">
+      <view class="date-box">
+        <text class="date-label">开始日期</text>
+        <picker mode="date" value="{{startDate}}" bindchange="onStartChange">
+          <view class="date-picker">
+            <text class="date-text">{{startDate || '请选择'}}</text>
+            <t-icon class="date-arrow" name="calendar" size="36rpx" />
+          </view>
+        </picker>
+      </view>
+
+      <view class="date-divider">
+        <text class="divider-line"></text>
+        <t-icon class="divider-arrow" name="arrow-right" size="32rpx" color="#999" />
+      </view>
+
+      <view class="date-box">
+        <text class="date-label">结束日期</text>
+        <picker mode="date" value="{{endDate}}" bindchange="onEndChange">
+          <view class="date-picker">
+            <text class="date-text">{{endDate || '请选择'}}</text>
+            <t-icon class="date-arrow" name="calendar" size="36rpx" />
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 是否包含结束日 -->
+    <view class="toggle-row">
+      <text class="toggle-label">包含结束日期</text>
+      <switch checked="{{includeEnd}}" bindchange="toggleInclude" color="#07C160" />
+    </view>
+  </view>
+
+  <!-- 计算按钮 -->
+  <view class="btn-wrap">
+    <button class="calc-btn" bindtap="calculate"><t-icon name="calculator" size="28rpx" /> 计算天数</button>
+  </view>
+
+  <!-- 结果 -->
+  <view class="section" wx:if="{{result}}">
+    <view class="section-title">计算结果</view>
+
+    <view class="result-card">
+      <view class="result-main">
+        <text class="result-big-num">{{result.totalDays}}</text>
+        <text class="result-unit">天</text>
+      </view>
+      <view class="result-dir">{{result.direction}}</view>
+
+      <view class="result-breakdown">
+        <view class="break-item">
+          <text class="break-num">{{result.years}}</text>
+          <text class="break-label">年</text>
+        </view>
+        <view class="break-item">
+          <text class="break-num">{{result.months}}</text>
+          <text class="break-label">月</text>
+        </view>
+        <view class="break-item">
+          <text class="break-num">{{result.days}}</text>
+          <text class="break-label">日</text>
+        </view>
+      </view>
+
+      <view class="result-extra">
+        <view class="extra-item">
+          <text class="extra-label">周数</text>
+          <text class="extra-value">{{result.weeks}} 周 {{result.remDays > 0 ? '余 ' + result.remDays + ' 天' : ''}}</text>
+        </view>
+        <view class="extra-item">
+          <text class="extra-label">工作日</text>
+          <text class="extra-value">约 {{result.workdays}} 天</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-safe"></view>
+</scroll-view>

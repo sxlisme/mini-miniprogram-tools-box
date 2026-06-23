@@ -1,0 +1,52 @@
+<navigation-bar show="{{true}}" back="{{!fullscreen}}" title="{{fullscreen ? '' : '全屏壁纸'}}" background="{{fullscreen ? '#000' : '#FFF'}}" color="{{fullscreen ? '#fff' : 'black'}}"></navigation-bar>
+
+<view class="page">
+  <!-- 非全屏：缩略图列表 -->
+  <view class="gallery" wx:if="{{!fullscreen}}">
+    <view class="gallery-header">
+      <view class="header-title"><t-icon name="image" size="40rpx" /> 全屏壁纸</view>
+      <view class="header-desc">选择一张壁纸全屏展示，屏幕保持常亮</view>
+    </view>
+
+    <!-- 缩略图网格 -->
+    <view class="thumbnail-grid">
+      <!-- 默认壁纸：base64 数据 URI 真机完美兼容 -->
+      <view class="thumb-item" 
+            wx:for="{{defaultWallpapers}}" 
+            wx:key="id" 
+            bindtap="onThumbnailTap" 
+            data-base64="{{item.base64}}"
+            data-id="{{item.id}}">
+        <image class="thumb-img" src="{{item.base64}}" mode="aspectFit"></image>
+      </view>
+
+      <!-- 用户壁纸：动态渲染 -->
+      <view class="thumb-item thumb-user" 
+            wx:for="{{userWallpapers}}" 
+            wx:key="id" 
+            bindtap="onThumbnailTap" 
+            data-path="{{item.path}}"
+            data-id="{{item.id}}">
+        <image class="thumb-img" src="{{item.path}}" mode="aspectFit"></image>
+        <view class="thumb-tag">我的</view>
+        <t-icon class="thumb-delete" catchtap="onDeleteWallpaper" data-id="{{item.id}}" name="close" size="24rpx" color="#fff" />
+      </view>
+
+      <!-- 添加按钮 -->
+      <view class="thumb-item thumb-add" bindtap="chooseLocalImage">
+        <t-icon class="add-icon" name="add" size="48rpx" color="#999" />
+        <view class="add-text">选择照片</view>
+      </view>
+    </view>
+
+    <view class="gallery-tip">
+      <text><t-icon name="lightbulb" size="24rpx" color="#BBB" /> 点击缩略图全屏预览 · 退出后照片自动保存</text>
+    </view>
+  </view>
+
+  <!-- 全屏模式 -->
+  <view class="fullscreen-overlay" wx:if="{{fullscreen}}" bindtap="onFullscreenTap">
+    <image class="fullscreen-image" src="{{imagePath}}" mode="aspectFill" bindload="onFullscreenImageLoad"></image>
+    <view class="hint-text {{showHint ? 'visible' : 'hidden'}}">双击任意位置退出</view>
+  </view>
+</view>

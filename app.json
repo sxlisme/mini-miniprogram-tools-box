@@ -1,0 +1,65 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/favorites/favorites",
+    "pages/profile/profile"
+  ],
+  "subpackages": [
+    {
+      "root": "pages/tools",
+      "name": "tools",
+      "pages": [
+        "photo-watermark/photo-watermark",
+        "json-formatter/json-formatter",
+        "mortgage-calc/mortgage-calc",
+        "days-calc/days-calc",
+        "timelapse-calc/timelapse-calc",
+        "clock-wallpaper/clock-wallpaper"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTitleText": "提效工具箱",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#999999",
+    "selectedColor": "#4A7BEC",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/favorites/favorites",
+        "text": "收藏"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "style": "v2",
+  "renderer": "skyline",
+  "rendererOptions": {
+    "skyline": {
+      "defaultDisplayBlock": true,
+      "defaultContentBox": true,
+      "tagNameStyleIsolation": "legacy",
+      "disableABTest": true,
+      "sdkVersionBegin": "3.0.0",
+      "sdkVersionEnd": "15.255.255"
+    }
+  },
+  "componentFramework": "glass-easel",
+  "usingComponents": {
+    "t-icon": "tdesign-miniprogram/icon/icon"
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

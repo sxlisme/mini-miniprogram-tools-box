@@ -1,0 +1,122 @@
+<navigation-bar title="房贷计算器" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page" scroll-y enhanced show-scrollbar="{{false}}">
+  <!-- 输入区 -->
+  <view class="section">
+    <view class="section-title">贷款信息</view>
+
+    <view class="input-group">
+      <text class="input-label">贷款金额（万元）</text>
+      <view class="input-wrap">
+        <text class="input-prefix">¥</text>
+        <input
+          class="form-input"
+          type="digit"
+          placeholder="例如 100"
+          value="{{amount}}"
+          bindinput="onAmountInput"
+        />
+        <text class="input-suffix">万</text>
+      </view>
+    </view>
+
+    <view class="input-group">
+      <text class="input-label">年利率（%）</text>
+      <view class="input-wrap">
+        <input
+          class="form-input"
+          type="digit"
+          placeholder="例如 4.2"
+          value="{{rate}}"
+          bindinput="onRateInput"
+        />
+        <text class="input-suffix">%</text>
+      </view>
+    </view>
+
+    <view class="input-group">
+      <text class="input-label">贷款年限</text>
+      <view class="input-wrap">
+        <input
+          class="form-input"
+          type="number"
+          placeholder="例如 30"
+          value="{{years}}"
+          bindinput="onYearsInput"
+        />
+        <text class="input-suffix">年</text>
+      </view>
+    </view>
+
+    <!-- 还款方式 -->
+    <view class="input-group">
+      <text class="input-label">还款方式</text>
+      <view class="method-wrap">
+        <view
+          class="method-item {{method === 'equal' ? 'active' : ''}}"
+          data-method="equal"
+          bindtap="onMethodChange"
+        >
+          <text>等额本息</text>
+        </view>
+        <view
+          class="method-item {{method === 'principal' ? 'active' : ''}}"
+          data-method="principal"
+          bindtap="onMethodChange"
+        >
+          <text>等额本金</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 计算按钮 -->
+  <view class="btn-wrap">
+    <button class="calc-btn" bindtap="calculate"><t-icon name="chart-bar" size="28rpx" /> 开始计算</button>
+  </view>
+
+  <!-- 结果展示 -->
+  <view class="section" wx:if="{{result}}">
+    <view class="section-title">计算结果</view>
+
+    <view class="result-card" wx:if="{{method === 'equal'}}">
+      <view class="result-item highlight">
+        <text class="result-label">每月月供</text>
+        <text class="result-value big">¥{{result.monthly}}</text>
+      </view>
+      <view class="result-item">
+        <text class="result-label">还款总额</text>
+        <text class="result-value">¥{{result.totalPayment}}</text>
+      </view>
+      <view class="result-item">
+        <text class="result-label">利息总额</text>
+        <text class="result-value">¥{{result.totalInterest}}</text>
+      </view>
+    </view>
+
+    <view class="result-card" wx:if="{{method === 'principal'}}">
+      <view class="result-item">
+        <text class="result-label">首月月供</text>
+        <text class="result-value big">¥{{result.firstMonth}}</text>
+      </view>
+      <view class="result-item">
+        <text class="result-label">末月月供</text>
+        <text class="result-value">¥{{result.lastMonth}}</text>
+      </view>
+      <view class="result-item">
+        <text class="result-label">还款特点</text>
+        <text class="result-value">{{result.monthlyDesc}}</text>
+      </view>
+      <view class="result-item">
+        <text class="result-label">还款总额</text>
+        <text class="result-value">¥{{result.totalPayment}}</text>
+      </view>
+      <view class="result-item">
+        <text class="result-label">利息总额</text>
+        <text class="result-value">¥{{result.totalInterest}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-safe"></view>
+</scroll-view>

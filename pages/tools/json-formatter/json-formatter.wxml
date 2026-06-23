@@ -1,0 +1,62 @@
+<navigation-bar title="JSON 格式化" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page" scroll-y enhanced show-scrollbar="{{false}}">
+  <!-- 输入区 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">输入 JSON</text>
+      <text class="clear-btn" bindtap="clearAll">清空</text>
+    </view>
+    <textarea
+      class="json-input"
+      value="{{inputText}}"
+      placeholder='{"key": "value"}'
+      bindinput="onInput"
+      auto-height
+      maxlength="-1"
+    />
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="btn-group">
+    <view class="btn btn-primary" bindtap="format">
+      <t-icon name="tools" size="28rpx" /><text> 格式化</text>
+    </view>
+    <view class="btn btn-outline" bindtap="compress">
+      <t-icon name="package" size="28rpx" /><text> 压缩</text>
+    </view>
+  </view>
+
+  <!-- 缩进设置 -->
+  <view class="indent-row" wx:if="{{outputText}}">
+    <text class="indent-label">缩进空格数</text>
+    <view class="indent-options">
+      <view
+        class="indent-item {{indent === item ? 'active' : ''}}"
+        wx:for="{{[2, 4, 8]}}"
+        wx:key="*this"
+        wx:for-item="item"
+        data-value="{{item}}"
+        bindtap="onIndentChange"
+      >{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 错误提示 -->
+  <view class="error-box" wx:if="{{errorMsg}}">
+    <text class="error-text"><t-icon name="error-circle" size="28rpx" /> {{errorMsg}}</text>
+  </view>
+
+  <!-- 输出区 -->
+  <view class="section" wx:if="{{outputText}}">
+    <view class="section-header">
+      <text class="section-title">输出结果</text>
+      <text class="copy-btn" bindtap="copyResult">{{copied ? '已复制' : '复制'}}<t-icon wx:if="{{copied}}" name="check" size="24rpx" color="#07C160" /></text>
+    </view>
+    <view class="json-output">
+      <text class="output-text">{{outputText}}</text>
+    </view>
+  </view>
+
+  <view class="bottom-safe"></view>
+</scroll-view>
