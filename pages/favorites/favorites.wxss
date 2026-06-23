@@ -90,5 +90,5 @@ page {
 }
 
 .bottom-safe {
-  height: 40rpx;
+  height: calc(110rpx + env(safe-area-inset-bottom));
 }

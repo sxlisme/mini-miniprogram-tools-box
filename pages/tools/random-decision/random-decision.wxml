@@ -1,0 +1,94 @@
+<navigation-bar title="随机决策器" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page" scroll-y enhanced show-scrollbar="{{false}}">
+  <!-- 模式切换 -->
+  <view class="tab-bar">
+    <view class="tab {{mode === 'wheel' ? 'active' : ''}}" bindtap="switchMode" data-mode="wheel">转盘</view>
+    <view class="tab {{mode === 'dice' ? 'active' : ''}}" bindtap="switchMode" data-mode="dice">骰子</view>
+    <view class="tab {{mode === 'coin' ? 'active' : ''}}" bindtap="switchMode" data-mode="coin">硬币</view>
+    <view class="tab {{mode === 'custom' ? 'active' : ''}}" bindtap="switchMode" data-mode="custom">自定义</view>
+  </view>
+
+  <!-- 转盘模式 -->
+  <view wx:if="{{mode === 'wheel'}}" class="section">
+    <view class="section-title">随机转盘</view>
+
+    <!-- 自定义选项 -->
+    <view class="wheel-input-wrap">
+      <textarea
+        class="wheel-textarea"
+        value="{{wheelCustomInput}}"
+        placeholder="自定义选项（每行一个，留空使用默认）"
+        bindinput="onWheelInput"
+        auto-height
+        maxlength="300"
+      />
+      <view class="wheel-input-hint">当前 {{wheelOptions.length}}/20 个选项</view>
+    </view>
+
+    <view class="wheel-container">
+      <view class="wheel-pointer">▼</view>
+      <canvas type="2d" id="wheelCanvas" class="wheel-canvas" bindtap="spinWheel"></canvas>
+      <cover-view class="wheel-center-btn" bindtap="spinWheel" wx:if="{{!wheelSpinning}}">
+        <cover-view class="wheel-btn-text">GO</cover-view>
+      </cover-view>
+    </view>
+    <view class="wheel-result" wx:if="{{wheelResult && !wheelSpinning}}">
+      <view class="wheel-result-label">结果</view>
+      <view class="wheel-result-value">{{wheelResult}}</view>
+    </view>
+    <button
+      class="action-btn"
+      bindtap="spinWheel"
+      disabled="{{wheelSpinning}}"
+      wx:if="{{wheelSpinning}}"
+    >🎡 旋转中...</button>
+  </view>
+
+  <!-- 骰子模式 -->
+  <view wx:if="{{mode === 'dice'}}" class="section">
+    <view class="dice-area">
+      <view class="dice-count">骰子数量: {{diceCount}}</view>
+      <view class="slider-wrap">
+        <slider min="1" max="6" value="{{diceCount}}" activeColor="#4A7BEC" block-size="20" bindchange="onDiceCount" />
+      </view>
+      <view class="dice-results">
+        <view class="dice-item {{result.rolling ? 'rolling' : ''}}" wx:for="{{diceResults}}" wx:key="index">{{item}}</view>
+      </view>
+      <view class="dice-sum" wx:if="{{diceResults.length > 1 && !result.rolling}}">总和: {{diceSum}}</view>
+    </view>
+    <button class="action-btn" bindtap="rollDice">🎲 掷骰子</button>
+  </view>
+
+  <!-- 硬币模式 -->
+  <view wx:if="{{mode === 'coin'}}" class="section">
+    <view class="coin-area">
+      <view class="coin-result {{result.rolling ? 'coin-flip' : ''}}">{{coinResult}}</view>
+      <view class="coin-text" wx:if="{{!result.rolling}}">{{coinResult === '正面' ? 'Heads' : 'Tails'}}</view>
+    </view>
+    <button class="action-btn" bindtap="flipCoin">🪙 抛硬币</button>
+  </view>
+
+  <!-- 自定义模式 -->
+  <view wx:if="{{mode === 'custom'}}" class="section">
+    <view class="section-title">输入选项（每行一个）</view>
+    <textarea
+      class="input-area"
+      value="{{customOptions}}"
+      placeholder="选项1&#10;选项2&#10;选项3"
+      bindinput="onCustomInput"
+      auto-height
+    />
+    <view class="custom-count" wx:if="{{parsedOptions.length > 0}}">共 {{parsedOptions.length}} 个选项</view>
+
+    <view class="custom-result" wx:if="{{customResult !== ''}}">
+      <view class="custom-result-label">结果</view>
+      <view class="custom-result-value">{{customResult}}</view>
+    </view>
+
+    <button class="action-btn" bindtap="randomPick" wx:if="{{parsedOptions.length > 1}}">🎯 随机选择</button>
+    <view class="hint" wx:if="{{parsedOptions.length < 2}}">请至少输入 2 个选项</view>
+  </view>
+
+  <view class="bottom-safe"></view>
+</scroll-view>

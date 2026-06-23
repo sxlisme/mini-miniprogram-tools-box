@@ -1,0 +1,59 @@
+<navigation-bar title="时间戳转换" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page" scroll-y enhanced show-scrollbar="{{false}}">
+  <!-- 当前时间戳 -->
+  <view class="section">
+    <view class="section-title">当前时间戳</view>
+    <view class="now-row">
+      <view class="now-item">
+        <view class="now-val">{{nowTs}}</view>
+        <view class="now-label">秒 (s)</view>
+        <view class="copy-one" bindtap="copyNowTs">复制</view>
+      </view>
+      <view class="now-item">
+        <view class="now-val">{{nowTsMs}}</view>
+        <view class="now-label">毫秒 (ms)</view>
+        <view class="copy-one" bindtap="copyNowTsMs">复制</view>
+      </view>
+    </view>
+    <view class="now-time">{{nowTime}}</view>
+    <button class="refresh-btn" bindtap="refreshNow">刷新</button>
+  </view>
+
+  <!-- 时间戳 → 日期 -->
+  <view class="section">
+    <view class="section-title">时间戳 → 日期</view>
+    <view class="input-row">
+      <input class="ts-input" type="number" placeholder="输入时间戳" value="{{tsInput}}" bindinput="onTsInput" />
+      <view class="unit-tabs">
+        <view class="unit {{tsUnit === 's' ? 'active' : ''}}" bindtap="switchUnit" data-unit="s">秒</view>
+        <view class="unit {{tsUnit === 'ms' ? 'active' : ''}}" bindtap="switchUnit" data-unit="ms">毫秒</view>
+      </view>
+    </view>
+    <view class="result-box" wx:if="{{tsResult}}">
+      <text>{{tsResult}}</text>
+      <view class="copy-one" bindtap="copyTsResult">复制</view>
+    </view>
+    <view class="error-box" wx:if="{{tsError}}">{{tsError}}</view>
+  </view>
+
+  <!-- 日期 → 时间戳 -->
+  <view class="section">
+    <view class="section-title">日期 → 时间戳</view>
+    <view class="picker-row">
+      <picker mode="date" value="{{datePicker}}" bindchange="onDateChange">
+        <view class="picker-display">{{dateText || '选择日期'}}</view>
+      </picker>
+      <picker mode="time" value="{{timePicker}}" bindchange="onTimeChange">
+        <view class="picker-display">{{timeText || '选择时间'}}</view>
+      </picker>
+    </view>
+    <button class="now-set-btn" bindtap="setNow">使用当前时间</button>
+    <view class="result-box" wx:if="{{dateResult}}">
+      <text class="result-text">{{dateResult}}</text>
+      <view class="copy-one" bindtap="copyDateResult">复制</view>
+    </view>
+  </view>
+
+  <view class="bottom-safe"></view>
+</scroll-view>

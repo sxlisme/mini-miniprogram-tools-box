@@ -1,0 +1,59 @@
+<navigation-bar title="字符统计" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page" scroll-y enhanced show-scrollbar="{{false}}">
+  <view class="section">
+    <view class="section-title">输入文本</view>
+    <textarea
+      class="input-area"
+      value="{{text}}"
+      placeholder="粘贴或输入文本..."
+      bindinput="onInput"
+      auto-height
+      maxlength="-1"
+    />
+    <view class="clear-btn" bindtap="clearText" wx:if="{{text.length > 0}}">
+      <t-icon name="close" size="28rpx" color="#999" />
+      <text>清空</text>
+    </view>
+  </view>
+
+  <view class="section" wx:if="{{text.length > 0}}">
+    <view class="section-title">统计结果</view>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <view class="stat-num">{{stats.total}}</view>
+        <view class="stat-label">总字符</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.chinese}}</view>
+        <view class="stat-label">中文</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.letters}}</view>
+        <view class="stat-label">英文/字母</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.numbers}}</view>
+        <view class="stat-label">数字</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.spaces}}</view>
+        <view class="stat-label">空格</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.punctuation}}</view>
+        <view class="stat-label">标点</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.lines}}</view>
+        <view class="stat-label">行数</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.paragraphs}}</view>
+        <view class="stat-label">段落</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-safe"></view>
+</scroll-view>

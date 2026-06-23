@@ -1,0 +1,34 @@
+<navigation-bar title="MD 预览" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page" scroll-y enhanced show-scrollbar="{{false}}">
+  <view class="tab-bar">
+    <view class="tab {{mode === 'edit' ? 'active' : ''}}" bindtap="switchMode" data-mode="edit">编辑</view>
+    <view class="tab {{mode === 'preview' ? 'active' : ''}}" bindtap="switchMode" data-mode="preview">预览</view>
+  </view>
+
+  <view wx:if="{{mode === 'edit'}}" class="section">
+    <textarea
+      class="input-area"
+      value="{{text}}"
+      placeholder="# 输入 Markdown 文本..."
+      bindinput="onInput"
+      auto-height
+      maxlength="-1"
+    />
+    <view class="clear-btn" bindtap="clearText" wx:if="{{text.length > 0}}">
+      <t-icon name="close" size="28rpx" color="#999" />
+      <text>清空</text>
+    </view>
+  </view>
+
+  <view wx:if="{{mode === 'preview'}}" class="section preview-section">
+    <view wx:if="{{text.length === 0}}" class="empty-preview">
+      <t-icon name="browse" size="64rpx" color="#CCC" />
+      <view class="empty-text">暂无内容，切换到编辑模式输入</view>
+    </view>
+    <rich-text wx:else nodes="{{htmlNodes}}" class="preview-content"></rich-text>
+    <view class="copy-btn" wx:if="{{text.length > 0}}" bindtap="copyPlainText">复制纯文本</view>
+  </view>
+
+  <view class="bottom-safe"></view>
+</scroll-view>

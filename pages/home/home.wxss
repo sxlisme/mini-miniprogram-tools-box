@@ -111,5 +111,5 @@ page {
 
 /* 底部安全距离 */
 .bottom-safe {
-  height: 40rpx;
+  height: calc(110rpx + env(safe-area-inset-bottom));
 }

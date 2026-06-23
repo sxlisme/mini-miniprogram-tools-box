@@ -14,7 +14,12 @@
         "mortgage-calc/mortgage-calc",
         "days-calc/days-calc",
         "timelapse-calc/timelapse-calc",
-        "clock-wallpaper/clock-wallpaper"
+        "clock-wallpaper/clock-wallpaper",
+        "char-counter/char-counter",
+        "markdown-preview/markdown-preview",
+        "timestamp-converter/timestamp-converter",
+        "random-decision/random-decision",
+        "uuid-generator/uuid-generator"
       ]
     }
   ],

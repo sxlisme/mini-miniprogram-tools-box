@@ -1,0 +1,54 @@
+<navigation-bar title="UUID 生成" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page" scroll-y enhanced show-scrollbar="{{false}}">
+  <!-- 生成区域 -->
+  <view class="section">
+    <view class="uuid-display" wx:if="{{uuid}}">
+      <view class="uuid-text">{{uuid}}</view>
+      <view class="uuid-meta">UUID v4 · {{uuid.length}} 字符</view>
+    </view>
+    <view class="empty-state" wx:else>
+      <t-icon name="secured" size="64rpx" color="#CCC" />
+      <view class="empty-text">点击下方按钮生成 UUID</view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="section">
+    <view class="btn-row">
+      <button class="gen-btn" bindtap="generateOne">生成一个</button>
+      <button class="outline-btn" bindtap="generateMany">批量生成</button>
+    </view>
+
+    <view class="count-row" wx:if="{{showBatch}}">
+      <view class="count-label">批量数量: {{batchCount}}</view>
+      <view class="slider-wrap">
+        <slider min="3" max="20" value="{{batchCount}}" activeColor="#4A7BEC" block-size="20" bindchange="onCountChange" />
+      </view>
+      <button class="gen-btn" bindtap="doBatchGenerate">生成 {{batchCount}} 个</button>
+    </view>
+  </view>
+
+  <!-- 历史列表 -->
+  <view class="section" wx:if="{{history.length > 0}}">
+    <view class="section-header">
+      <view class="section-title">历史记录</view>
+      <view class="copy-all-btn" bindtap="copyAll">复制全部</view>
+    </view>
+    <view class="history-list">
+      <view class="history-item" wx:for="{{history}}" wx:key="index">
+        <view class="history-index">{{index + 1}}</view>
+        <view class="history-text">{{item}}</view>
+        <view class="history-copy" bindtap="copyOne" data-uuid="{{item}}">
+          <t-icon name="file-copy" size="28rpx" color="#999" />
+        </view>
+      </view>
+    </view>
+    <view class="clear-btn" bindtap="clearHistory">
+      <t-icon name="close" size="28rpx" color="#999" />
+      <text>清空记录</text>
+    </view>
+  </view>
+
+  <view class="bottom-safe"></view>
+</scroll-view>

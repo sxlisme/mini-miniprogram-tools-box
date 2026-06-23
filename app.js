@@ -52,6 +52,46 @@ App({
         desc: '上传图片全屏展示，屏幕常亮',
         path: '/pages/tools/clock-wallpaper/clock-wallpaper',
         color: '#667eea'
+      },
+      {
+        id: 'char-counter',
+        name: '字符统计',
+        icon: 'edit',
+        desc: '统计文本字符、字数、行数',
+        path: '/pages/tools/char-counter/char-counter',
+        color: '#5B8DEF'
+      },
+      {
+        id: 'markdown-preview',
+        name: 'MD 预览',
+        icon: 'browse',
+        desc: 'Markdown 实时渲染预览',
+        path: '/pages/tools/markdown-preview/markdown-preview',
+        color: '#6C8EE8'
+      },
+      {
+        id: 'timestamp-converter',
+        name: '时间戳转换',
+        icon: 'time',
+        desc: '时间戳与日期时间互转',
+        path: '/pages/tools/timestamp-converter/timestamp-converter',
+        color: '#5B86E5'
+      },
+      {
+        id: 'random-decision',
+        name: '随机决策器',
+        icon: 'refresh',
+        desc: '骰子/硬币/自定义随机选择',
+        path: '/pages/tools/random-decision/random-decision',
+        color: '#4E78E0'
+      },
+      {
+        id: 'uuid-generator',
+        name: 'UUID 生成',
+        icon: 'secured',
+        desc: '一键生成 UUID v4 标识符',
+        path: '/pages/tools/uuid-generator/uuid-generator',
+        color: '#607EE6'
       }
     ]
   },
