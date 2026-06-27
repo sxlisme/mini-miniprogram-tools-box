@@ -54,15 +54,21 @@ page {
   border-radius: 10rpx;
 }
 
+.clear-btn.active {
+  background: #4A7BEC;
+  color: #FFFFFF;
+}
+
 /* Stats Grid */
 .stats-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 16rpx;
+  gap: 10rpx;
+  justify-content: space-between;
 }
 
 .stat-item {
-  width: calc(25% - 12rpx);
+  width: calc(25% - 7.5rpx);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,6 +89,44 @@ page {
   font-size: 22rpx;
   color: #666666;
   margin-top: 8rpx;
+}
+
+/* 小红书字数条 */
+.xhs-bar {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 24rpx;
+  padding: 24rpx 28rpx;
+  background: #FFF3E0;
+  border-radius: 14rpx;
+}
+
+.xhs-num {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #E67E22;
+  line-height: 1;
+  min-width: 80rpx;
+  text-align: center;
+}
+
+.xhs-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.xhs-label {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #E67E22;
+}
+
+.xhs-hint {
+  font-size: 22rpx;
+  color: #C08A4A;
+  line-height: 1.4;
 }
 
 .bottom-safe {

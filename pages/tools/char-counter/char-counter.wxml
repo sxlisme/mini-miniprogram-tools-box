@@ -11,8 +11,8 @@
       auto-height
       maxlength="-1"
     />
-    <view class="clear-btn" bindtap="clearText" wx:if="{{text.length > 0}}">
-      <t-icon name="close" size="28rpx" color="#999" />
+    <view class="clear-btn {{text.length > 0 ? 'active' : ''}}" bindtap="clearText">
+      <t-icon name="close" size="28rpx" color="{{text.length > 0 ? '#FFF' : '#999'}}" />
       <text>清空</text>
     </view>
   </view>
@@ -51,6 +51,15 @@
       <view class="stat-item">
         <view class="stat-num">{{stats.paragraphs}}</view>
         <view class="stat-label">段落</view>
+      </view>
+    </view>
+
+    <!-- 小红书字数 -->
+    <view class="xhs-bar">
+      <view class="xhs-num">{{stats.xhsCount}}</view>
+      <view class="xhs-info">
+        <view class="xhs-label">小红书字数</view>
+        <view class="xhs-hint">中文 1:1 / 英文&空格 2字=1字符</view>
       </view>
     </view>
   </view>

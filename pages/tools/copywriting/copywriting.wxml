@@ -1,0 +1,59 @@
+<navigation-bar title="爆款文案" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<scroll-view class="page" scroll-y enhanced show-scrollbar="{{false}}">
+  <!-- 模式切换 -->
+  <view class="tab-bar">
+    <view class="tab {{tab === 'desk' ? 'active' : ''}}" bindtap="switchTab" data-tab="desk">桌搭</view>
+    <view class="tab {{tab === 'emotion' ? 'active' : ''}}" bindtap="switchTab" data-tab="emotion">情绪</view>
+    <view class="tab {{tab === 'other' ? 'active' : ''}}" bindtap="switchTab" data-tab="other">其他</view>
+  </view>
+
+  <!-- 列表 -->
+  <view class="list">
+    <view class="card {{item.copied ? 'copied' : ''}}" wx:for="{{list}}" wx:key="id">
+      <!-- 索引号 -->
+      <view class="card-header">
+        <view class="card-index">
+          <text wx:if="{{item.chapter}}">{{item.chapter}} · #{{item.id}}</text>
+          <text wx:else>#{{item.id}}</text>
+        </view>
+        <view class="card-actions">
+          <view class="copy-btn" bindtap="copyItem" data-index="{{index}}">
+            <text>一键复制</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 封面文案 -->
+      <view class="card-cover" wx:if="{{item.cover}}">{{item.cover}}</view>
+
+      <!-- 标题 -->
+      <view class="card-title">{{item.title}}<text class="title-char-count">({{item.titleChars}})</text></view>
+
+      <!-- 正文 -->
+      <view class="card-content">{{item.content}}</view>
+
+      <!-- 金句 -->
+      <view class="card-quote" wx:if="{{item.quote}}">
+        <view class="quote-mark">"</view>
+        <text>{{item.quote}}</text>
+      </view>
+
+      <!-- 互动 -->
+      <view class="card-interaction" wx:if="{{item.interaction}}">
+        <text class="interaction-label">💬 </text>
+        <text>{{item.interaction}}</text>
+      </view>
+
+      <!-- 标签 -->
+      <view class="card-tags" wx:if="{{item.tags && tab === 'desk'}}">
+        <text class="tag" wx:for="{{item.tags.split(' ')}}" wx:key="*this" wx:if="{{item}}">{{item}}</text>
+      </view>
+      <view class="card-tags" wx:if="{{item.tags && tab === 'other'}}">
+        <text class="tag" wx:for="{{item.tags.split(' ')}}" wx:key="*this" wx:if="{{item}}">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-safe"></view>
+</scroll-view>

@@ -19,7 +19,8 @@
         "markdown-preview/markdown-preview",
         "timestamp-converter/timestamp-converter",
         "random-decision/random-decision",
-        "uuid-generator/uuid-generator"
+        "uuid-generator/uuid-generator",
+        "copywriting/copywriting"
       ]
     }
   ],

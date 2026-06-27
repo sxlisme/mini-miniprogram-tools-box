@@ -92,6 +92,14 @@ App({
         desc: '一键生成 UUID v4 标识符',
         path: '/pages/tools/uuid-generator/uuid-generator',
         color: '#607EE6'
+      },
+      {
+        id: 'copywriting',
+        name: '爆款文案',
+        icon: 'edit-1',
+        desc: '桌搭/情绪/其他小红书文案',
+        path: '/pages/tools/copywriting/copywriting',
+        color: '#E74C3C'
       }
     ]
   },
